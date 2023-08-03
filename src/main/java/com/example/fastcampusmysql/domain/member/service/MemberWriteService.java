@@ -12,12 +12,12 @@ public class MemberWriteService {
 
     final private MemberRepository memberRepository;
 
-    public void create(RegisterMemberCommand command) {
+    public Member register(RegisterMemberCommand command) {
         var member = Member.builder()
                 .nickname(command.nickname())
                 .email(command.email())
                 .birthday(command.birthdate())
                 .build();
-        memberRepository.save(member);
+        return memberRepository.save(member);
     }
 }
