@@ -18,7 +18,7 @@ import java.util.List;
 @Repository
 public class MemberNicknameHistoryRepository {
     final private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    static final private String TABLE = "member";
+    static final private String TABLE = "MemberNicknameHistory";
 
     static final RowMapper<MemberNicknameHistory> rowMapper = (ResultSet resultSet, int rowNum) -> MemberNicknameHistory.builder()
             .id(resultSet.getLong("id"))
@@ -44,7 +44,7 @@ public class MemberNicknameHistoryRepository {
     private MemberNicknameHistory insert(MemberNicknameHistory history) {
         //insert 후에 id 담아온다 (JPA 전환 고려)
         SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(namedParameterJdbcTemplate.getJdbcTemplate())
-                .withTableName("Member")
+                .withTableName(TABLE)
                 .usingGeneratedKeyColumns("id");
         SqlParameterSource params = new BeanPropertySqlParameterSource(history);
         var id = simpleJdbcInsert.executeAndReturnKey(params).longValue();

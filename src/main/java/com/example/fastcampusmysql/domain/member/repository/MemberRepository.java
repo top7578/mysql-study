@@ -19,7 +19,7 @@ import java.util.Optional;
 @Repository
 public class MemberRepository {
     final private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    static final private String TABLE = "member";
+    static final private String TABLE = "Member";
 
     static final RowMapper<Member> rowMapper = (ResultSet resultSet, int rowNum) -> Member.builder()
             .id(resultSet.getLong("id"))
@@ -48,7 +48,7 @@ public class MemberRepository {
     private Member insert(Member member) {
         //insert 후에 id 담아온다 (JPA 전환 고려)
         SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(namedParameterJdbcTemplate.getJdbcTemplate())
-                .withTableName("Member")
+                .withTableName(TABLE)
                 .usingGeneratedKeyColumns("id");
         SqlParameterSource params = new BeanPropertySqlParameterSource(member);
         var id = simpleJdbcInsert.executeAndReturnKey(params).longValue();
